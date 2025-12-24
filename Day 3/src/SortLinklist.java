@@ -1,10 +1,12 @@
 class Node {
     int data;
     Node next;
+    Node left, right;
 
     Node(int data) {
         this.data = data;
         this.next = null;
+        left = right = null;
     }
 }
 public class SortLinklist {
