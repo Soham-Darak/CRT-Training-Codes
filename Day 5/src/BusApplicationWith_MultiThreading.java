@@ -5,22 +5,27 @@ class BusBooking extends Thread{
     BusBooking(int seat){
         this.seat = seat;
     }
-    public void run(){
+    public synchronized void run(){
+        String name = Thread.currentThread().getName();
         if(available >= seat){
-            System.out.println("Seats are Booked");
+            System.out.println(name+ ", Seats are Booked");
             available = available - seat;
         }
         else{
-            System.out.println("Sorry");
+            System.out.println(name +" Sorry");
         }
     }
 }
 public class BusApplicationWith_MultiThreading{
     public static void main(String[] args) {
         BusBooking op = new BusBooking(2);
-        Thread t1 = new Thread();
-        Thread t2 = new Thread();
-        Thread t3 = new Thread();
+        Thread t1 = new Thread(op); // -> We are using Copy Constructor
+        Thread t2 = new Thread(op);
+        Thread t3 = new Thread(op);
+
+        t1.setName("Soham");
+        t2.setName("Parth");
+        t3.setName("Rohit");
 
         t1.start();
         t2.start();
