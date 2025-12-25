@@ -44,7 +44,9 @@ class Account{
 
     private int CN;
     private int pn;
+
     Scanner sc = new Scanner(System.in); // Global Variable because we are going to use it multiple time.
+
     double CB = 2000; // Current Balance
     double SB = 1000; // Saving Balance
 
@@ -53,7 +55,6 @@ class Account{
 
     void SETCustomerNumber(int cn){ // setter
         CN = cn;
-        // Applet and Sublet
     }
 
     void SETPINNumber(int pn){ // setter
@@ -87,10 +88,9 @@ class Account{
             System.out.println("\nTransaction Successful.");
             CalcCurrentWithdraw(amount);
             System.out.println("\nNew Current Account Balance: "+df1.format(CB)+ "\n");
-
         }
         else{
-            System.err.println("\n Insufficient Balance\n");
+            System.err.println("\nInsufficient Balance\n");
         }
     }
 
@@ -104,7 +104,6 @@ class Account{
             System.out.println("\nTransaction Successful.");
             CalcSavingWithdraw(amount);
             System.out.println("\nNew Current Account Balance: "+df2.format(SB)+ "\n");
-
         }
         else{
             System.err.println("\n Insufficient Balance\n");
@@ -121,16 +120,27 @@ class Account{
         return SB;
     }
 
-
-
-    void SETCustomerNumber(){
-
+    double CalcCurrentDeposit(double amount){
+        CB = CB + amount;
+        return CB;
     }
 
-    void SETPINNumber(){
-
+    double CalcSavingDeposit(double amount){
+        SB = SB + amount;
+        return SB;
     }
 
+    double GETCurrentDepositInput(){
+        System.out.print("Enter the Amount to be Deposited: ");
+        double a = sc.nextDouble();
+        return a;
+    }
+
+    double GETSavingDepositInput(){
+        System.out.print("Enter the Amount to be Deposited: ");
+        double a = sc.nextDouble();
+        return a;
+    }
 }
 
 class OptionMenu extends Account{
@@ -181,7 +191,7 @@ class OptionMenu extends Account{
             catch (InputMismatchException ime){
                 System.err.println("\nPlease Input Only Numbers, Characters and Symbols are not allowed \n");
                 System.out.println("Enter the Valid Customer Number or PIN Number");
-                sc.next(); // talkes next line as an input
+                sc.next(); // takes next line as an input
                 GETLogin();
             }
         } while(true);
@@ -208,7 +218,7 @@ class OptionMenu extends Account{
                 System.out.println("\nThank You for VISITING.");
                 System.out.println("VISIT AGAIN... \n");
                 System.out.println("-----------------------------------------------------------------------------");
-                //We won't call the GETLogin Function for the Security purpose.
+                // We won't call the GETLogin Function for the Security purpose.
                 // We will put the entire block in the Do-While Loop
                 break;
             default:
@@ -239,6 +249,10 @@ class OptionMenu extends Account{
                 GETAccountType();
                 break;
             case 3:
+                double a = GETCurrentDepositInput();
+                CalcCurrentDeposit(a);
+                System.out.println("Your Current Account Balance is "+df1.format(CB)+ "\n");
+                GETAccountType();
                 break;
             case 4:
                 System.out.println("\nThank You for VISITING.");
@@ -273,6 +287,10 @@ class OptionMenu extends Account{
                 GETAccountType();
                 break;
             case 3:
+                double a = GETSavingDepositInput();
+                CalcSavingDeposit(a);
+                System.out.println("Your Current Account Balance is "+df2.format(SB)+ "\n");
+                GETAccountType();
                 break;
             case 4:
                 System.out.println("\nThank You for VISITING.");
@@ -291,10 +309,10 @@ class OptionMenu extends Account{
 
 public class ATM extends OptionMenu {
     // 1. Main Method
-    Scanner sc = new Scanner(System.in); // Global Variable because we are going to use it multiple time.
+    // Scanner sc = new Scanner(System.in); // Global Variable because we are going to use it multiple time.
     public static void main(String[] args) {
         OptionMenu op = new OptionMenu();
-        // op.GETLogin();
-        op.GETAccountType();
+        op.GETLogin();
+        // op.GETAccountType();
     }
 }
